@@ -7,8 +7,13 @@ router.get('/', function(req, res, next) {
     symbols: ['SPY','CLJ16.NYM'],
     fields: ['s', 'n', 'd1', 'l1', 'y', 'r'],
   }, function (err, snapshot) {
-    this.spySnapshot = snapshot[0];
-    this.clSnapshot = snapshot[1];
+    if (snapshot) {
+      this.spySnapshot = snapshot[0];
+      this.clSnapshot = snapshot[1];
+    } else {
+      this.spySnapshot = {lastTradePriceOnly: 'Error with Yahoo Finance Api'};
+      this.clSnapshot = {lastTradePriceOnly: 'Error with Yahoo Finance Api'};
+    }
   });
 
   res.json({ spySnapshot: this.spySnapshot, clSnapshot: this.clSnapshot })
