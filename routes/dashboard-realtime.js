@@ -18,8 +18,8 @@ router.get('/', function(req, res, next) {
 
   yahooFinance.historical({
     symbol: 'SPY',
-    from: new Date(new Date().getFullYear()-1, 12, 31),
-    to: new Date(new Date().getFullYear()-1, 12, 31),
+    from: new Date('2015-12-31'),
+    to: new Date('2015-12-31'),
   }, function (err, data) {
     this.spyYearStartPrice = data[0].close;
   });
