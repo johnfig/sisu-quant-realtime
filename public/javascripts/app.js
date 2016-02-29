@@ -22,8 +22,15 @@ app.controller('refresh_finance',function($scope,$interval,$http){
         $scope.clColor = 'red'
       };
 
+      if ($scope.spyYearlyPerformance > response.spyYearlyPerformance) {
+        $scope.spyYearlyColor = 'green'
+      } else {
+        $scope.spyYearlyColor = 'red'
+      };
+
       $scope.spyTradePrice = response.spySnapshot.lastTradePriceOnly
       $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
+      $scope.spyYearlyPerformance = response.spyYearlyPerformance
     });
   },1000);
 });

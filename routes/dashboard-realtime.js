@@ -16,7 +16,17 @@ router.get('/', function(req, res, next) {
     }
   });
 
-  res.json({ spySnapshot: this.spySnapshot, clSnapshot: this.clSnapshot })
+  yahooFinance.historical({
+    symbol: 'SPY',
+    from: new Date('2015-12-31'),
+    to: new Date('2015-12-31'),
+  }, function (err, data) {
+    this.spyYearStartPrice = data[0].close;
+  });
+
+  this.spyYearlyPerformance = (this.spySnapshot.lastTradePriceOnly - this.spyYearStartPrice)/this.spyYearStartPrice
+
+  res.json({ spySnapshot: this.spySnapshot, clSnapshot: this.clSnapshot, spyYearlyPerformance: this.spyYearlyPerformance })
 });
 
 module.exports = router;
