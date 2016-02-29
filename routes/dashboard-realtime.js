@@ -18,13 +18,18 @@ router.get('/', function(req, res, next) {
 
   yahooFinance.historical({
     symbol: 'SPY',
-    from: new Date('2015-12-31'),
-    to: new Date('2015-12-31'),
+    from: new Date(new Date().getFullYear()-1, 12, 31),
+    to: new Date(new Date().getFullYear()-1, 12, 31),
   }, function (err, data) {
-    this.spyYearStartPrice = data[0].close;
+    console.log(JSON.stringify(data, null, 2));
+    if (data[0]) {
+      this.spyYearStartPrice = data[0].close;
+      this.spyYearlyPerformance = (this.spySnapshot.lastTradePriceOnly - this.spyYearStartPrice)/this.spyYearStartPrice*100
+    } else {
+      this.spyYearlyPerformance = 'Error with Yahoo Finance Api';
+    }
   });
 
-  this.spyYearlyPerformance = (this.spySnapshot.lastTradePriceOnly - this.spyYearStartPrice)/this.spyYearStartPrice*100
 
   res.json({ spySnapshot: this.spySnapshot, clSnapshot: this.clSnapshot, spyYearlyPerformance: this.spyYearlyPerformance })
 });
