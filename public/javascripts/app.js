@@ -32,6 +32,6 @@ app.controller('refresh_finance',function($scope,$interval,$http){
       $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
       $scope.spyYearlyPerformance = response.spyYearlyPerformance
     });
-  },60000);
+  },10000);
 });
 
