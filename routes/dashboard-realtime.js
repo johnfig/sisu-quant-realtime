@@ -16,10 +16,11 @@ router.get('/', function(req, res, next) {
     }
   });
 
+  lastYear = new Date().getFullYear()-1
   yahooFinance.historical({
     symbol: 'SPY',
-    from: new Date('2015-12-31'),
-    to: new Date('2015-12-31'),
+    from: new Date(lastYear + '-12-31'),
+    to: new Date(lastYear + '-12-31'),
   }, function (err, data) {
     this.spyYearStartPrice = data[0].close;
   });
