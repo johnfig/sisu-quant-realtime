@@ -7,15 +7,23 @@ function($scope){
 
 app.controller('refresh_finance',function($scope,$interval,$http){
   $scope.spyTradePrice = 'Loading...'
+  $scope.clTradePrice = 'Loading...'
   $interval(function(){
     $http.get('/dashboard-realtime').success( function(response) {
-      if ($scope.spyTradePrice < response.snapshot.lastTradePriceOnly) {
-        $scope.color = 'red'
+      if ($scope.spyTradePrice < response.spySnapshot.lastTradePriceOnly) {
+        $scope.spyColor = 'red'
       } else {
-        $scope.color = 'green'
+        $scope.spyColor = 'green'
       };
 
-      $scope.spyTradePrice = response.snapshot.lastTradePriceOnly
+      if ($scope.clTradePrice < response.clSnapshot.lastTradePriceOnly) {
+        $scope.clColor = 'red'
+      } else {
+        $scope.clColor = 'green'
+      };
+
+      $scope.spyTradePrice = response.spySnapshot.lastTradePriceOnly
+      $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
     });
   },1000);
 });

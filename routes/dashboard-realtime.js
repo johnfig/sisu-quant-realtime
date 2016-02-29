@@ -7,10 +7,17 @@ router.get('/', function(req, res, next) {
     symbol: 'SPY',
     fields: ['s', 'n', 'd1', 'l1', 'y', 'r'],
   }, function (err, snapshot) {
-    this.snapshot = snapshot;
+    this.spySnapshot = snapshot;
   });
 
-  res.json({ snapshot: this.snapshot })
+  yahooFinance.snapshot({
+    symbol: 'CLJ16.NYM',
+    fields: ['s', 'n', 'd1', 'l1', 'y', 'r'],
+  }, function (err, snapshot) {
+    this.clSnapshot = snapshot;
+  });
+
+  res.json({ spySnapshot: this.spySnapshot, clSnapshot: this.clSnapshot })
 });
 
 module.exports = router;
