@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     console.log(JSON.stringify(snapshot, null, 2));
   });
 
-  res.render('dashboard', { title: 'Sisu Quant Realtime', snapshot: this.snapshot });
+  res.render('dashboard', { title: 'Dashboard for Sisu Quant', snapshot: this.snapshot });
 });
 
 module.exports = router;
