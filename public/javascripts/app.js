@@ -1,13 +1,16 @@
 var app = angular.module('sisuQuantRealtime', ['ui.router']);
 
 app.controller('finance', [
-'$scope',
-function($scope){
+'$scope', '$http',
+function($scope, $http){
+  $http.get('/dashboard-realtime').success( function(response) {
+    $scope.spyTradePrice = response.spySnapshot.lastTradePriceOnly
+    $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
+    $scope.spyYearlyPerformance = response.spyYearlyPerformance
+  });
 }]);
 
 app.controller('refresh_finance',function($scope,$interval,$http){
-  $scope.spyTradePrice = 'Loading...'
-  $scope.clTradePrice = 'Loading...'
   $interval(function(){
     $http.get('/dashboard-realtime').success( function(response) {
       if ($scope.spyTradePrice > response.spySnapshot.lastTradePriceOnly) {
@@ -32,6 +35,6 @@ app.controller('refresh_finance',function($scope,$interval,$http){
       $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
       $scope.spyYearlyPerformance = response.spyYearlyPerformance
     });
-  },10000);
+  }, 30000);
 });
 
