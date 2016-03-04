@@ -16,7 +16,16 @@ router.get('/', function(req, res, next) {
     this.unemploymentRate = unemploymentRate.observations.pop().value
   });
 
-  res.render('dashboard', { title: 'Dashboard for Sisu Quant', snapshot: this.snapshot, unemploymentRate: this.unemploymentRate });
+  fred.series.observations('GFDEGDQ188S', function(err, debtToGDP) {
+    this.debtToGDP = debtToGDP.observations.pop().value
+  });
+
+  res.render('dashboard',{
+    title: 'Dashboard for Sisu Quant',
+    snapshot: this.snapshot,
+    unemploymentRate: this.unemploymentRate,
+    debtToGDP: this.debtToGDP,
+  });
 });
 
 module.exports = router;
