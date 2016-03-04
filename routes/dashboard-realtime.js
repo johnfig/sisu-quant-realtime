@@ -27,7 +27,11 @@ router.get('/', function(req, res, next) {
 
   this.spyYearlyPerformance = (this.spySnapshot.lastTradePriceOnly - this.spyYearStartPrice)/this.spyYearStartPrice*100
 
-  res.json({ spySnapshot: this.spySnapshot, clSnapshot: this.clSnapshot, spyYearlyPerformance: this.spyYearlyPerformance })
+  res.json({
+    spySnapshot: this.spySnapshot,
+    clSnapshot: this.clSnapshot,
+    spyYearlyPerformance: this.spyYearlyPerformance
+  })
 });
 
 module.exports = router;
