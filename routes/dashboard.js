@@ -9,21 +9,31 @@ router.get('/', function(req, res, next) {
     fields: ['s', 'n', 'd1', 'l1', 'y', 'r'],
   }, function (err, snapshot) {
     this.snapshot = snapshot;
-    console.log(JSON.stringify(snapshot, null, 2));
   });
 
   fred.series.observations('UNRATE', function(err, unemploymentRate) {
-    this.unemploymentRate = unemploymentRate.observations.pop().value
+    if (unemploymentRate) {
+      this.unemploymentRate = unemploymentRate.observations.pop().value
+    };
+  });
+
+  fred.series.observations('CIVPART', function(err, laborParticipationRate) {
+    if (laborParticipationRate) {
+      this.laborParticipationRate = laborParticipationRate.observations.pop().value
+    };
   });
 
   fred.series.observations('GFDEGDQ188S', function(err, debtToGDP) {
-    this.debtToGDP = debtToGDP.observations.pop().value
+    if (debtToGDP) {
+      this.debtToGDP = debtToGDP.observations.pop().value
+    };
   });
 
   res.render('dashboard',{
     title: 'Dashboard for Sisu Quant',
     snapshot: this.snapshot,
     unemploymentRate: this.unemploymentRate,
+    laborParticipationRate: this.laborParticipationRate,
     debtToGDP: this.debtToGDP,
   });
 });
