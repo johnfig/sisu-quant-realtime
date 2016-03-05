@@ -22,10 +22,16 @@ router.get('/', function(req, res, next) {
     from: new Date(lastYear + '-12-31'),
     to: new Date(lastYear + '-12-31'),
   }, function (err, data) {
-    this.spyYearStartPrice = data[0].close;
+    if (data) {
+      this.spyYearStartPrice = data[0].close;
+    }
   });
 
-  this.spyYearlyPerformance = (this.spySnapshot.lastTradePriceOnly - this.spyYearStartPrice)/this.spyYearStartPrice*100
+  if (this.spyYearStartPrice && this.spySnapshot) {
+    this.spyYearlyPerformance = (this.spySnapshot.lastTradePriceOnly - this.spyYearStartPrice)/this.spyYearStartPrice*100
+  } else {
+    this.spyYearlyPerformance = 'Error with Yahoo Finance Api'
+  }
 
   res.json({
     spySnapshot: this.spySnapshot,
