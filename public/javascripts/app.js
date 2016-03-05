@@ -5,7 +5,9 @@ app.controller('finance', [
 function($scope, $http){
   $http.get('/dashboard-realtime').success( function(response) {
     $scope.spyTradePrice = response.spySnapshot.lastTradePriceOnly
+    $scope.spyPercentChange = response.spySnapshot.changeInPercent * 100
     $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
+    $scope.clPercentChange = response.clSnapshot.changeInPercent * 100
     $scope.spyYearlyPerformance = response.spyYearlyPerformance
   });
 }]);
@@ -32,7 +34,9 @@ app.controller('refresh_finance',function($scope,$interval,$http){
       };
 
       $scope.spyTradePrice = response.spySnapshot.lastTradePriceOnly
+      $scope.spyPercentChange = response.spySnapshot.changeInPercent * 100
       $scope.clTradePrice = response.clSnapshot.lastTradePriceOnly
+      $scope.clPercentChange = response.clSnapshot.changeInPercent * 100
       $scope.spyYearlyPerformance = response.spyYearlyPerformance
     });
   }, 30000);

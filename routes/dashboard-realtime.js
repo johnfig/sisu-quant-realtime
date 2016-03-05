@@ -5,7 +5,7 @@ var yahooFinance = require('yahoo-finance');
 router.get('/', function(req, res, next) {
   yahooFinance.snapshot({
     symbols: ['SPY','CLJ16.NYM'],
-    fields: ['s', 'n', 'd1', 'l1', 'y', 'r'],
+    fields: ['s', 'n', 'd1', 'l1', 'y', 'r', 'k2', 'p2'],
   }, function (err, snapshot) {
     if (snapshot) {
       this.spySnapshot = snapshot[0];
