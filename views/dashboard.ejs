@@ -14,15 +14,15 @@
     <div class='row'>
       <div class='column'>
         <h3>Stock Market Data</h3>
-        <div ng-controller="refresh_finance">
+        <p ng-controller="refresh_finance">
           <span class='bold'>Spy Trade Price</span>: <span ng-style='{color: spyColor}'>{{spyTradePrice}}</span>
-        </div>
-        <div ng-controller="refresh_finance">
+        </p>
+        <p ng-controller="refresh_finance">
           <span class='bold'>CL Trade Price</span>: <span ng-style='{color: clColor}'>{{clTradePrice}}</span>
-        </div>
-        <div ng-controller="refresh_finance">
+        </p>
+        <p ng-controller="refresh_finance">
           <span class='bold'>S&P Yearly Performance</span>: <span ng-style='{color: spyYearlyColor}'>{{spyYearlyPerformance | number: 2}}%</span>
-        </div>
+        </p>
       </div>
       <div class='column'>
         <h3>Housing Data</h3>
