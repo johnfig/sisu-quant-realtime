@@ -4,16 +4,15 @@ var yahooFinance = require('yahoo-finance');
 var fred = require('fred')('1ab947af701f804360c98accc8bf46ec' || process.env.FRED_API_KEY);
 
 router.get('/', function(req, res, next) {
-  yahooFinance.snapshot({
-    symbol: 'SPY',
-    fields: ['s', 'n', 'd1', 'l1', 'y', 'r'],
-  }, function (err, snapshot) {
-    this.snapshot = snapshot;
-  });
-
   fred.series.observations('UNRATE', function(err, unemploymentRate) {
     if (unemploymentRate) {
       this.unemploymentRate = unemploymentRate.observations.pop().value
+    };
+  });
+
+  fred.series.observations('FEDFUNDS', function(err, federalFundsRate) {
+    if (federalFundsRate) {
+      this.federalFundsRate = federalFundsRate.observations.pop().value
     };
   });
 
@@ -31,9 +30,9 @@ router.get('/', function(req, res, next) {
 
   res.render('dashboard',{
     title: 'Dashboard for Sisu Quant',
-    snapshot: this.snapshot,
     unemploymentRate: this.unemploymentRate,
     laborParticipationRate: this.laborParticipationRate,
+    federalFundsRate: this.federalFundsRate,
     debtToGDP: this.debtToGDP,
   });
 });
