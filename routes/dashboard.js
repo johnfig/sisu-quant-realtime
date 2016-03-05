@@ -17,12 +17,6 @@ var data = [
            ]
 
 router.get('/', function(req, res, next) {
-  fred.series.observations('UNRATE', function(err, unemploymentRate) {
-    if (unemploymentRate) {
-      this.unemploymentRate = unemploymentRate.observations.pop().value
-    };
-  });
-
   setEconomicData(data)
 
   res.render('dashboard',{
