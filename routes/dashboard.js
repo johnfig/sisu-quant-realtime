@@ -30,6 +30,8 @@ function setEconomicData(data) {
     fred.series.observations(name[0], function(err, result) {
       if (result) {
         this[name[1]] = result.observations.pop().value
+      } else {
+        this[name[1]] = 'Bad api, no results found'
       };
       cb();
     });
