@@ -21,12 +21,13 @@ router.get('/', function(req, res, next) {
   setEconomicData(data)
 
   res.render('dashboard',{
-    title: 'Sisu Quant Economic Dashboard'
+    title: 'Sisu Quant Economic Dashboard',
   });
 });
 
 function setEconomicData(data) {
   async.eachSeries(data, function(name, cb) {
+    this[name[1]] = 'loading...'
     fred.series.observations(name[0], function(err, result) {
       if (result) {
         this[name[1]] = result.observations.pop().value
