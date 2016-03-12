@@ -31,7 +31,7 @@ function setEconomicData(data) {
       if (result) {
         this[name[1]] = result.observations.pop().value
       } else {
-        this[name[1]] = 'Bad api, no results found'
+        this[name[1]] = 'bad api'
       };
       cb();
     });
