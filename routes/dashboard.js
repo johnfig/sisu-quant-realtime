@@ -11,6 +11,7 @@ var data = [
              ['GFDEGDQ188S', 'debtToGDP'],
              ['MORTGAGE15US', 'fifteenYearMortgageRate'],
              ['MORTGAGE30US', 'thirtyYearMortgageRate'],
+             ['DRSFRMACBS', 'housingDelinquencyRate'],
              ['DGS5', 'fiveYearTreasury'],
              ['DGS10', 'tenYearTreasury'],
              ['DGS30', 'thirtyYearTreasury'],
@@ -20,15 +21,7 @@ router.get('/', function(req, res, next) {
   setEconomicData(data)
 
   res.render('dashboard',{
-    title: 'Sisu Quant Economic Dashboard',
-    unemploymentRate: this.unemploymentRate,
-    laborParticipationRate: this.laborParticipationRate,
-    federalFundsRate: this.federalFundsRate,
-    debtToGDP: this.debtToGDP,
-    averageMortgageRate: this.averageMortgageRate,
-    fivYearTreasury: this.fivYearTreasury,
-    tenYearTreasury: this.tenYearTreasury,
-    thirtyYearTreasury: this.thirtyYearTreasury,
+    title: 'Sisu Quant Economic Dashboard'
   });
 });
 
